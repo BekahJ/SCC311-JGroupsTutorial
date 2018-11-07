@@ -40,7 +40,7 @@ implements ServerInterface {
         try {
             this.channel = new JChannel();
             this.requestOptions = new RequestOptions(ResponseMode.GET_ALL, TIMEOUT);
-            this.dispatcher = new RpcDispatcher(this.channel, this);
+            this.dispatcher = new RpcDispatcher(this.channel, new ClusterMember());
             this.channel.connect(CLUSTER_NAME);
         } catch(Exception e) {
             System.out.println("[SERVER] Failed to connect to cluster");
