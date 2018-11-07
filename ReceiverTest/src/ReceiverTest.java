@@ -6,6 +6,8 @@ extends ReceiverAdapter {
     private static Channel channel;
     
     public static void main(String args[]) {
+
+        //Create/Connect to the channel (group)
         try {
             channel = new JChannel();
             channel.connect("RecieverTestChannel");
@@ -13,8 +15,11 @@ extends ReceiverAdapter {
             System.out.println("## Error Creating Channel");
             e.printStackTrace();
         }
+
+        //Set the channel receiver instance (see extends ReceiverAdapter at top)
         channel.setReceiver(new ReceiverTest());
 
+        //Send 10 messages to the channel's receiver
         for(int i=0 ; i<10 ; i++) {
             System.out.println("Sending Message #"+i);
             try {
@@ -29,7 +34,7 @@ extends ReceiverAdapter {
     }
 
     public void receive(Message msg) {
-        System.out.println(msg.getObject());
+        System.out.println((String)msg.getObject());
     }
 
     public void viewAccepted(View newView) {
